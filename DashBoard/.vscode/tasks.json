@@ -1,0 +1,62 @@
+{
+    "version": "2.0.0",
+    "options": {
+        "cwd": "${workspaceFolder}"  // 确保工作区为DashBoard根目录
+    },
+    "tasks": [
+        {
+            "label": "Insight",
+            "type": "shell",
+            "command": ".\\.vscode\\build_and_run.bat",
+            "args": ["Insight"],  // 传递任务类型参数
+            "group": "Build",
+            "presentation": {
+                "reveal": "always",
+                "showReuseMessage": false,
+                "panel": "shared"
+            },
+            "problemMatcher": "$msCompile"  // 增加MSVC编译错误匹配（可选）
+        },
+        {
+            "label": "Launcher",
+            "type": "shell",
+            "command": ".\\.vscode\\build_and_run.bat",
+            "args": ["Launcher"],
+            "group": "Build",
+            "presentation": {
+                "reveal": "always",
+                "showReuseMessage": false,
+                "panel": "shared"
+            },
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "Upload",
+            "type": "shell",
+            "command": ".\\.vscode\\build_and_run.bat",
+            "args": ["Upload"],
+            "group": "Build",
+            "presentation": {
+                "reveal": "always",
+                "showReuseMessage": false,
+                "panel": "shared"
+            },
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "Install",
+            "type": "shell",
+            "command": "python",  // 直接调用Python解释器
+            "args": [
+                "${workspaceFolder}/Script/Install/Install.py"
+            ],
+            "group": "Build",
+            "presentation": {
+                "reveal": "always",
+                "showReuseMessage": false,
+                "panel": "shared"
+            },
+            "problemMatcher": []  // Python脚本错误匹配（默认空，可根据需求添加）
+        }
+    ]
+}
