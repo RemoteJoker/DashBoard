@@ -41,19 +41,19 @@ def check_build_dir(project_name):
     return build_output_dir
 
 def check_bootconf_db():
-    """检查 Config 目录下的 bootconf.db 是否存在"""
+    """检查 Config/Databases 目录下的 bootconf.db 是否存在"""
     root_dir = os.getcwd()
-    db_path = os.path.join(root_dir, "Config", "bootconf.db")
+    db_path = os.path.join(root_dir, "Config", "Databases", "bootconf.db")
     
     if not os.path.exists(db_path):
-        print(f"错误：Config 目录下未找到 bootconf.db → {db_path}")
+        print(f"错误：Config/Databases 目录下未找到 bootconf.db → {db_path}")
         sys.exit(1)
     
     print(f"找到 bootconf.db 数据库 → {db_path}")
     return db_path
 
 def clean_build_dir():
-    """清理 Build 目录：保留 DashBoard，删除其他所有目录/文件"""
+    """清理 Build 目录：保留 DashBoard,删除其他所有目录/文件"""
     root_dir = os.getcwd()
     build_dir = os.path.join(root_dir, "Build")
     
