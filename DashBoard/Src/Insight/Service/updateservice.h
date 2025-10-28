@@ -20,7 +20,6 @@ protected:
     void run() final;
 
 private:
-    void Core()final;
 
     void SetServiceId()final;
 

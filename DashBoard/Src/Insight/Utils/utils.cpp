@@ -12,7 +12,6 @@ bool Utils::InitApp(){
         QString g_exe_path = GetRunPath();
         //读取全局配置文件
         QSettings v_app_settings(g_exe_path+"/configure/app.ini", QSettings::IniFormat);
-        v_app_settings.setIniCodec("UTF-8");
         GlobalSet::SetMainWindow(v_app_settings.value("mainwindow/m_mainwindow_name").toString()
                                  ,v_app_settings.value("mainwindow/m_mainwindow_version").toString()
                                  ,g_exe_path+v_app_settings.value("mainwindow/m_mainwindow_style").toString()
@@ -67,7 +66,6 @@ bool Utils::InitApp(){
                                   );
         //读取MQTT通信相关配置文件
         QSettings v_mosqsub_settings(g_exe_path+"/configure/app/mosqsub.ini", QSettings::IniFormat);
-        v_app_settings.setIniCodec("UTF-8");
         GlobalData::SetProcessSub(v_mosqsub_settings.value("process/m_process_report").toString()
                                   ,v_mosqsub_settings.value("process/m_process_request").toString()
                                   );

@@ -1,12 +1,8 @@
-import QtQuick 2.15
-import Launcher 1.0
+import QtQuick
 
-Rectangle {
-    width: 400
-    height: 300
-    color: "white"
-    Text {
-        text: "Launcher"
-        anchors.centerIn: parent
-    }
+Window {
+    width: 640
+    height: 480
+    visible: true
+    title: qsTr("Hello World")
 }

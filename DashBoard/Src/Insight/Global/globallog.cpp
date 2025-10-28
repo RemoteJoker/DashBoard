@@ -1,12 +1,13 @@
-#include "runlog.h"
+#include "globallog.h"
+#include <QDebug>
 
-RunLog::RunLog() {
+GlobalLog::GlobalLog() {
 }
 
-RunLog::~RunLog() {
+GlobalLog::~GlobalLog() {
 }
 
-void RunLog::SaveLog(LogType v_log_type, const std::string& v_message) {
+void GlobalLog::SaveLog(LogType v_log_type, const std::string& v_message) {
 #if m_log_flag == ON //开启日志
 #ifdef QT_DEBUG
     switch (v_log_type) {

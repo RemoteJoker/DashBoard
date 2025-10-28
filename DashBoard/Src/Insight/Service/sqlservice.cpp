@@ -62,8 +62,7 @@ void SqlService::run(){
     try {
         //code
         for(;;){
-            sleep(m_thread_wait_time);
-            Core();
+            msleep(m_thread_wait_time);
         }
     } catch (...) {
         //
@@ -72,15 +71,14 @@ void SqlService::run(){
 }
 
 void SqlService::RecvCode(int v_service_id,int v_code_type){
-    //
+    //全处理
+    if(v_service_id == g_service_id){
+        //处理
+    }
 }
 
 void SqlService::SetServiceId(){
     g_service_id = Sql;
-}
-
-void SqlService::Core(){
-    //待定
 }
 
 bool SqlService::AddOperateLog(const QString &operation_type, const QString &v_operation, const QDateTime &v_operateTime){

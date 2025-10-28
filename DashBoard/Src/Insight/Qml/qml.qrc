@@ -1,6 +1,5 @@
-<!-- Qml/qml.qrc -->
 <RCC>
     <qresource prefix="/">
-        <file>Main.qml</file>  <!-- 路径相对于 qml.qrc 所在位置 -->
+        <file alias="Main.qml">Main.qml</file>
     </qresource>
 </RCC>

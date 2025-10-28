@@ -21,8 +21,7 @@ void UpdateService::run(){
     try {
         //code
         for(;;){
-            sleep(m_thread_wait_time);
-            Core();
+            msleep(m_thread_wait_time);
         }
     } catch (...) {
         //
@@ -31,7 +30,9 @@ void UpdateService::run(){
 }
 
 void UpdateService::RecvCode(int v_service_id,int v_code_type){
-    if(v_service_id == Control){
+    //全处理
+    if(v_service_id == g_service_id){
+        //处理
         switch(v_code_type){
         case GetUpdate:{
             Log(L_INFO,"网关-启动更新");
@@ -44,8 +45,4 @@ void UpdateService::RecvCode(int v_service_id,int v_code_type){
 
 void UpdateService::SetServiceId(){
     g_service_id = Update;
-}
-
-void UpdateService::Core(){
-    //待定
 }

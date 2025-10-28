@@ -5,11 +5,11 @@ project(Insight VERSION 1.0 LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# 指定 Qt 路径（确保正确）
+# 指定 Qt 路径
 set(Qt6_DIR "D:/Qt/6.9.3/msvc2022_64/lib/cmake/Qt6")
 
-# 查找 Qt 组件（QML 必需）
-find_package(Qt6 REQUIRED COMPONENTS Core Gui Qml Quick)
+# 查找 Qt 组件
+find_package(Qt6 REQUIRED COMPONENTS Core Gui Qml Quick Sql Mqtt)
 
 # 启用 Qt 工具链
 set(CMAKE_AUTOMOC ON)
@@ -18,32 +18,37 @@ set(CMAKE_AUTOUIC ON)
 
 # 收集源文件
 file(GLOB SOURCES
-    main.cpp
-    Global/*.cpp
-    Utils/*.cpp
-    Service/*.cpp
-    Model/*.cpp
+    "main.cpp"
+    "Global/*.cpp"
+    "Utils/*.cpp"
+    "Service/*.cpp"
+    "Service/ServiceImpl/*.cpp"
+    "Model/*.cpp"
+    "Model/ModelImpl/*.cpp"
 )
 
-# 收集头文件
-file(GLOB HEADERS
-    Global/*.h
-    Utils/*.h
-    Service/*.h
-    Model/*.h
+# 创建可执行文件
+add_executable(Insight ${SOURCES})
+
+# 添加 QML 资源文件
+set(QML_FILES
+    "Qml/Main.qml"
+    # 添加其他QML文件
 )
 
-qt_add_executable(Insight
-    ${SOURCES}
-    ${HEADERS}
+qt_add_resources(Insight "qml_resources"
+    PREFIX "/"
+    BASE "Qml"
+    FILES
+        "Qml/qml.qrc"
+        "Qml/Main.qml"
 )
 
-qt_add_qml_module(Insight
-    URI Insight
-    VERSION ${PROJECT_VERSION}
-    QML_FILES
-        Qml/Main.qml
-    RESOURCE_PREFIX "/qt/qml/Insight"
+# 设置目标属性
+set_target_properties(Insight PROPERTIES
+    AUTOMOC ON
+    AUTORCC ON
+    AUTOUIC ON
 )
 
 # 链接 Qt 库
@@ -52,23 +57,23 @@ target_link_libraries(Insight PRIVATE
     Qt6::Gui
     Qt6::Qml
     Qt6::Quick
+    Qt6::Sql
+    Qt6::Mqtt
 )
 
-# 包含头文件目录
+# 包含目录
 target_include_directories(Insight PRIVATE
-    Global
-    Utils
-    Service
-    Model
+    ${CMAKE_CURRENT_SOURCE_DIR}
+    ${CMAKE_CURRENT_SOURCE_DIR}/Global
+    ${CMAKE_CURRENT_SOURCE_DIR}/Utils
+    ${CMAKE_CURRENT_SOURCE_DIR}/Service
+    ${CMAKE_CURRENT_SOURCE_DIR}/Model
 )
 
 # 解决 Vulkan 警告
-if (Qt6_VERSION VERSION_GREATER_EQUAL 6.5)
-    target_compile_definitions(Insight PRIVATE QT_QUICK_BACKEND=software)
-endif()
+target_compile_definitions(Insight PRIVATE QT_QUICK_BACKEND=software)
 
 # 设置输出目录
 set_target_properties(Insight PROPERTIES
-    RUNTIME_OUTPUT_DIRECTORY_DEBUG "${CMAKE_BINARY_DIR}/Debug"
-    RUNTIME_OUTPUT_DIRECTORY_RELEASE "${CMAKE_BINARY_DIR}/Release"
+    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )

@@ -34,7 +34,7 @@ QStringList ProcessModel::AntiSerial(const QString v_str){
                 v_process_msg.alive = v_processObj["alive"].toBool();
                 g_process_msg.insert(v_processName,v_process_msg);
                 //此处数据已经存入全局变量
-                v_list<<v_processName<<QString(v_process_msg.alive)<<v_process_msg.start_time<<v_process_msg.elapsed_time;
+                v_list<<v_processName<<"生存状态"<<v_process_msg.start_time<<v_process_msg.elapsed_time;
             }
         }
     }
