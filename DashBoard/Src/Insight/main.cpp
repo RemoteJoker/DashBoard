@@ -14,7 +14,7 @@ int main(int argc, char *argv[])
     NetService *g_t_net = new NetService;
     SqlService *g_t_sql = new SqlService;
     UpdateService *g_t_update = new UpdateService;
-    ContrlService *g_t_control = new ContrlService(g_t_net,g_t_sql,g_t_update);
+    ControlService *g_t_control = new ControlService(g_t_net,g_t_sql,g_t_update);
 
     g_t_net->start();
     g_t_sql->start();

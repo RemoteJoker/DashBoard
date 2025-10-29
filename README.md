@@ -9,3 +9,6 @@ Vlmu重构
 
 [20251028]
 1.DashBoard适配成功
+
+[20251029]
+1.DashBoard功能迁移
