@@ -9,12 +9,14 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(Qt6_DIR "D:/Qt/6.9.3/msvc2022_64/lib/cmake/Qt6")
 
 # 查找 Qt 组件
-find_package(Qt6 REQUIRED COMPONENTS Core Gui Qml Quick Sql Mqtt)
+find_package(Qt6 REQUIRED COMPONENTS Core Gui Qml Quick Sql Mqtt Charts)
 
 # 启用 Qt 工具链
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
+
+qt_standard_project_setup(REQUIRES 6.5)
 
 # 收集源文件
 file(GLOB SOURCES
@@ -27,21 +29,14 @@ file(GLOB SOURCES
     "Model/ModelImpl/*.cpp"
 )
 
-# 创建可执行文件
-add_executable(Insight ${SOURCES})
+qt_add_executable(Insight ${SOURCES})
 
-# 添加 QML 资源文件
-set(QML_FILES
-    "Qml/Main.qml"
-    # 添加其他QML文件
-)
-
-qt_add_resources(Insight "qml_resources"
-    PREFIX "/"
-    BASE "Qml"
-    FILES
-        "Qml/qml.qrc"
-        "Qml/Main.qml"
+qt_add_qml_module(Insight
+    URI Insight
+    VERSION 1.0
+    QML_FILES
+    Qml/Main.qml
+    RESOURCES Qml/qml.qrc
 )
 
 # 设置目标属性
@@ -59,6 +54,7 @@ target_link_libraries(Insight PRIVATE
     Qt6::Quick
     Qt6::Sql
     Qt6::Mqtt
+    Qt6::Charts
 )
 
 # 包含目录

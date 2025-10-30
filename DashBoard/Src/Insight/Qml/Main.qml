@@ -1,65 +1,106 @@
-import QtQuick 2.15
-import QtQuick.Controls 2.15
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Layouts
+import "./View"
+import "./Component"
 
 ApplicationWindow {
-    width: 1000
-    height: 700
-    title: "软件界面"
     visible: true
+    width: 800
+    height: 600
+    title: "DashBoard"
 
-    // 菜单栏
-    menuBar: MenuBar {
+    menuBar:MenuBar{
         Menu {
-            title: "功能"
-            MenuItem { text: "指令发送" }
-            MenuItem { text: "软件设置" }
+            title : qsTr("功能")
+            Action {
+                text : qsTr("指令操作")
+            }
+            Action {
+                text : qsTr("软件设置")
+            }
         }
-
         Menu {
-            title: "视图"
-            MenuItem { text: "进程信息" }
-            MenuItem { text: "崩溃转储" }
-            MenuItem { text: "日志文件" }
-            MenuItem { text: "版本列表" }
+            title : qsTr("视图")
+            Action {
+                text : qsTr("进程展示")
+            }
+            Action {
+                text : qsTr("内核转储")
+            }
+            Action {
+                text : qsTr("版本信息")
+            }
+            Action {
+                text : qsTr("日志文件")
+            }
         }
-
         Menu {
-            title: "关于"
-            MenuItem { text: "关于软件" }
+            title : qsTr("关于")
+            Action {
+                text : qsTr("关于软件")
+                onTriggered : {
+                    aboutView.open()
+                }
+            }
         }
     }
 
-    // 工具栏
-    header: ToolBar {
-        Row {
-            ToolButton { text: "进程信息" }
-            ToolButton { text: "崩溃转储" }
-            ToolButton { text: "日志文件" }
-            ToolButton { text: "版本列表" }
+    header:ToolBar{
+        RowLayout {
+            anchors.fill: parent
+            spacing: 0
+        
+            ToolButton {
+                text: qsTr("进程展示")
+                Layout.fillWidth: true
+            }
+        
+            ToolButton {
+                text: qsTr("内核转储")
+                Layout.fillWidth: true
+            }
+        
+            ToolButton {
+                text: qsTr("版本信息")
+                Layout.fillWidth: true
+            }
+        
+            ToolButton {
+                text: qsTr("日志文件")
+                Layout.fillWidth: true
+            }
         }
     }
 
-    // 状态栏
-    footer: StatusBar {
+    ColumnLayout {
+        anchors.fill: parent
+
+        TabBar {
+            id: tabBar
+            Layout.fillWidth: true
+
+            TabButton { text: qsTr("系统概览") }
+            TabButton { text: qsTr("CPU") }
+            TabButton { text: qsTr("MEM") }
+            TabButton { text: qsTr("进程&&线程") }
+        }
+
+        StackLayout {
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+            currentIndex: tabBar.currentIndex
+            Page{ Text{ anchors.centerIn: parent; text: "This is page1" } }
+            Page{ Text{ anchors.centerIn: parent; text: "This is page2" } }
+            Page{ Text{ anchors.centerIn: parent; text: "This is page3" } }
+            Page{ Text{ anchors.centerIn: parent; text: "This is page4" } }
+        }
     }
 
-    // 主界面 - TabWidget
-    TabBar {
-        id: tabBar
-        width: parent.width
-        TabButton { text: "进程信息" }
-        TabButton { text: "崩溃转储" }
-        TabButton { text: "日志文件" }
-        TabButton { text: "版本列表" }
-    }
+    footer : StatusBar
 
-    StackLayout {
-        width: parent.width
-        height: parent.height - tabBar.height
-        currentIndex: tabBar.currentIndex
-        Item { }
-        Item { }
-        Item { }
-        Item { }
+    AboutView {
+        id : aboutView
+        anchors.centerIn: parent
     }
 }

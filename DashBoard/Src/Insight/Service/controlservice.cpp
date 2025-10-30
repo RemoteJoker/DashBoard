@@ -4,7 +4,7 @@
 #include "Service/sqlservice.h"
 #include "Service/updateservice.h"
 
-ControlService::ControlService(NetService *v_net_service,SqlService *v_sql_service,UpdateService *v_update_service)
+ContrlService::ContrlService(NetService *v_net_service,SqlService *v_sql_service,UpdateService *v_update_service)
 {
     SetServiceId();
     t_net_service = v_net_service;
@@ -12,21 +12,21 @@ ControlService::ControlService(NetService *v_net_service,SqlService *v_sql_servi
     t_update_service = v_update_service;
 }
 
-ControlService::~ControlService()
+ContrlService::~ContrlService()
 {
     Log(L_INFO,"控制服务结束");
 }
 
-void ControlService::run(){
+void ContrlService::run(){
     Log(L_INFO,"控制服务运行");
-    connect(this,&ControlService::SendCode,t_net_service,&NetService::RecvCode);
-    connect(t_net_service,&NetService::SendCode,this,&ControlService::RecvCode);
+    connect(this,&ContrlService::SendCode,t_net_service,&NetService::RecvCode);
+    connect(t_net_service,&NetService::SendCode,this,&ContrlService::RecvCode);
 
-    connect(this,&ControlService::SendCode,t_sql_service,&SqlService::RecvCode);
-    connect(t_sql_service,&SqlService::SendCode,this,&ControlService::RecvCode);
+    connect(this,&ContrlService::SendCode,t_sql_service,&SqlService::RecvCode);
+    connect(t_sql_service,&SqlService::SendCode,this,&ContrlService::RecvCode);
 
-    connect(this,&ControlService::SendCode,t_update_service,&UpdateService::RecvCode);
-    connect(t_update_service,&UpdateService::SendCode,this,&ControlService::RecvCode);
+    connect(this,&ContrlService::SendCode,t_update_service,&UpdateService::RecvCode);
+    connect(t_update_service,&UpdateService::SendCode,this,&ContrlService::RecvCode);
 
     try {
         //code
@@ -39,7 +39,7 @@ void ControlService::run(){
     }
 }
 
-void ControlService::RecvCode(int v_service_id,int v_code_type){
+void ContrlService::RecvCode(int v_service_id,int v_code_type){
     //全处理
     if(v_service_id == None){
         //异常数据:无ID
@@ -61,15 +61,15 @@ void ControlService::RecvCode(int v_service_id,int v_code_type){
     }
 }
 
-void ControlService::SetServiceId(){
+void ContrlService::SetServiceId(){
     g_service_id = Control;
 }
 
-void ControlService::startRun(){
+void ContrlService::startRun(){
     emit statusMessageReceived("系统初始化完成");
 }
 
-QVariantMap ControlService::getProcessViewMsg(){
+QVariantMap ContrlService::getProcessViewMsg(){
     // 示例数据 - 根据实际数据源替换
     QVariantMap process;
     process["alive"] = false;
@@ -81,7 +81,7 @@ QVariantMap ControlService::getProcessViewMsg(){
     return process;
 }
 
-QVariantMap ControlService::getDumpViewMsg(){
+QVariantMap ContrlService::getDumpViewMsg(){
     QVariantMap dumpData;
     QVariantList coresList;
     
@@ -100,7 +100,7 @@ QVariantMap ControlService::getDumpViewMsg(){
     return dumpData;
 }
 
-QVariantMap ControlService::getLogViewMsg(){
+QVariantMap ContrlService::getLogViewMsg(){
     QVariantMap logData;
     QVariantList logList;
     
@@ -113,7 +113,7 @@ QVariantMap ControlService::getLogViewMsg(){
     return logData;
 }
 
-QVariantMap ControlService::getVersionViewMsg(){
+QVariantMap ContrlService::getVersionViewMsg(){
     QVariantMap versionData;
     
     QString versionInfo = "--------------- Xpilot version --------------- \n"
@@ -141,7 +141,7 @@ QVariantMap ControlService::getVersionViewMsg(){
     return versionData;
 }
 
-void ControlService::executeDumpCommand()
+void ContrlService::executeDumpCommand()
 {
     // 转储指令的具体实现
     emit statusMessageReceived("执行转储指令");
@@ -149,7 +149,7 @@ void ControlService::executeDumpCommand()
     // 可以在这里触发转储操作
 }
 
-void ControlService::executeLogCommand()
+void ContrlService::executeLogCommand()
 {
     // 日志指令的具体实现
     emit statusMessageReceived("执行日志指令");
@@ -157,7 +157,7 @@ void ControlService::executeLogCommand()
     // 可以在这里处理日志相关操作
 }
 
-void ControlService::executeVersionCommand()
+void ContrlService::executeVersionCommand()
 {
     // 版本指令的具体实现
     emit statusMessageReceived("执行版本指令");

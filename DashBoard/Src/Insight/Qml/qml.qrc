@@ -1,5 +1,17 @@
 <RCC>
     <qresource prefix="/">
         <file>Main.qml</file>
+        <file>Component/StatusBar.qml</file>
+        <file>View/AboutView.qml</file>
+        <file>View/CommandView.qml</file>
+        <file>View/CoreDumpView.qml</file>
+        <file>View/LogView.qml</file>
+        <file>View/ProcessView.qml</file>
+        <file>View/SoftWareSetView.qml</file>
+        <file>View/VersionView.qml</file>
+        <file>View/SystemAll.qml</file>
+        <file>View/ProcessThread.qml</file>
+        <file>View/Cpu.qml</file>
+        <file>View/Mem.qml</file>
     </qresource>
 </RCC>

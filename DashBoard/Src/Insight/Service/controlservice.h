@@ -1,5 +1,5 @@
-#ifndef CONTROLSERVICE_H
-#define CONTROLSERVICE_H
+#ifndef ContrlService_H
+#define ContrlService_H
 
 #include "ServiceImpl/serviceimpl.h"
 
@@ -8,13 +8,13 @@ class NetService;
 class SqlService;
 class UpdateService;
 
-class ControlService final: public ServiceImpl
+class ContrlService final: public ServiceImpl
 {
     Q_OBJECT
 
 public:
-    ControlService(NetService *,SqlService *,UpdateService*);
-    ~ControlService();
+    ContrlService(NetService *,SqlService *,UpdateService*);
+    ~ContrlService();
 
 signals:
     void SendCode(int v_service_id,int v_code_type);//接收指令码从更新线程
@@ -60,4 +60,4 @@ private:
     UpdateService *t_update_service;
 };
 
-#endif // CONTROLSERVICE_H
+#endif // ContrlService_H
